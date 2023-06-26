@@ -37,7 +37,7 @@ def update_vote(vote: schemas.Vote, db: Session = Depends(database.get_db),
         vote_query.delete(synchronize_session=False)
         db.commit()
 
-        return {"message": "Successfully deleted vote"}
+        return {"message": "Successfully deleted vote."}
     
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.VoteCount])
 def get_votes(db: Session = Depends(database.get_db),
