@@ -20,7 +20,6 @@ def get_posts(user: Annotated[str, Depends(get_current_user)], db: Session=Depen
 
 @router.get('/{id}', response_model=OutPost)
 def get_post(id: int, user: Annotated[str, Depends(get_current_user)], db: Session=Depends(database.get_db)):
-    print(user)
     post = db.query(Post).get({'id': id})
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

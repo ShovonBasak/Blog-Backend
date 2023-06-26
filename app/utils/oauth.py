@@ -58,7 +58,6 @@ def generate_token(form_data: OAuth2PasswordRequestForm, db):
     access_token = create_access_token(
         data={"username": user.email}, expires_delta=access_token_expires
     )
-    print({"access_token": access_token, "token_type": "bearer"})
     return {"access_token": access_token, "token_type": "bearer"}
 
 def verify_token(token, credentials_exception):
