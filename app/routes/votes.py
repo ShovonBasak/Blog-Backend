@@ -1,14 +1,13 @@
 from multiprocessing import synchronize
-from turtle import mode
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
+
 from httpx import delete, get
 from sqlalchemy import func, outerjoin
 from sqlalchemy.orm import Session
 
 from app import database, models, schemas
 from app.utils import oauth
-
+from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter(
     prefix='/vote',
