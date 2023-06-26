@@ -19,7 +19,7 @@ def get_users(current_user: Annotated[str, Depends(oauth.get_current_user)], db:
     return users
 
 @router.post('/', response_model=OutUser, status_code=status.HTTP_201_CREATED)
-def create_user(user: CreateUser, current_user: Annotated[str, Depends(oauth.get_current_user)], db: Session=Depends(get_db)):
+def create_user(user: CreateUser, db: Session=Depends(get_db)):
     user.password = oauth.hash_pass(user.password)
     new_user = User(**user.dict())
     db.add(new_user)
