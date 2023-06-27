@@ -1,0 +1,14 @@
+[Unit]
+Description=My FastAPI Application
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/path/to/your/app
+Environment="PATH=/path/to/venv/bin"
+EnvironmentFile=/path/to/your/app/.env
+ExecStart=/path/to/your/virtualenv/bin/gunicorn -c /path/to/gunicorn.conf.py your_application:app
+
+[Install]
+WantedBy=multi-user.target
