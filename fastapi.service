@@ -7,7 +7,7 @@ User=ubuntu
 Group=ubuntu
 WorkingDirectory=/home/ubuntu/fastapi
 Environment=/home/ubuntu/fastapi/venv/bin
-EnvironmentFile=/home/ubuntu/fastapi/app/.env
+EnvironmentFile=/home/ubuntu/fastapi/.env
 ExecStart=/home/ubuntu/fastapi/venv/bin/gunicorn -c /home/ubuntu/fastapi/gunicorn.conf.py app.main:app
 
 [Install]

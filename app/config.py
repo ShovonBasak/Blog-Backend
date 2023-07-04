@@ -9,6 +9,6 @@ class Settings(BaseSettings):
     secret_key: str
 
     class Config:
-        env_file = "app/.env"
+        env_file = ".env"
 
 settings = Settings.parse_obj({})
