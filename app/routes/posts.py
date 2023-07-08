@@ -20,7 +20,7 @@ def get_posts(user: Annotated[str, Depends(get_current_user)], db: Session=Depen
 
 @router.get('/{id}', response_model=OutPost)
 def get_post(id: int, user: Annotated[str, Depends(get_current_user)], db: Session=Depends(database.get_db)):
-    post = db.query(Post).get({'id': id})
+    post = db.get(Post, {'id': id})
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return post
@@ -28,7 +28,7 @@ def get_post(id: int, user: Annotated[str, Depends(get_current_user)], db: Sessi
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=OutPost)
 def create_post(post: BasePost, user: Annotated[str, Depends(get_current_user)], db: Session=Depends(database.get_db)):
-    new_post = Post(**post.dict())
+    new_post = Post(owner_id=user.id, **post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
@@ -36,9 +36,11 @@ def create_post(post: BasePost, user: Annotated[str, Depends(get_current_user)],
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id: int, user: Annotated[str, Depends(get_current_user)], db: Session=Depends(database.get_db)):
-    post = db.query(Post).get({'id': id})
+    post = db.query(Post).filter(Post.id == id).first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    if post.owner_id != user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
     db.delete(post)
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
@@ -49,6 +51,8 @@ def update_post(id: int, updated_post: BasePost, user: Annotated[str, Depends(ge
     post = post_query.first()
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    if post.owner_id != user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
     post_query.update(updated_post.dict(), synchronize_session=False)
     db.commit()
     return post_query.first()

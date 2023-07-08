@@ -14,9 +14,9 @@ from app.config import settings
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.token_expiration
 SECRET_KEY = settings.secret_key
-ALGORITHM = "HS256"
+ALGORITHM = settings.algorithm
 
 def get_user(db, username:str):
     user = db.query(models.User).filter(models.User.email==username).first()
