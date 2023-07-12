@@ -14,7 +14,7 @@ from app.config import settings
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-ACCESS_TOKEN_EXPIRE_MINUTES = settings.token_expiration
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 SECRET_KEY = settings.secret_key
 ALGORITHM = settings.algorithm
 
