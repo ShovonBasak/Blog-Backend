@@ -90,7 +90,5 @@ jobs:
           username: ${{secrets.PROD_USERNAME}}
           key: ${{secrets.PROD_SSH_PRIVATE_KEY}}
           script: |
-            cd app/src
-            git pull
             docker compose down
             docker compose up -d
