@@ -17,6 +17,10 @@ services:
 
   api:
     image: shvnbasak/fastapi-api:latest
+    labels:
+      - "dev.shovon.api=api"
+    volumes: 
+      - /home/ubuntu/src/.env:/usr/src/app/.env:ro
 
 volumes:
   https-portal-data:
