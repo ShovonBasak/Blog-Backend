@@ -102,4 +102,4 @@ jobs:
             sudo docker compose down
             sudo docker compose up -d
             CONTAINER_ID=$(docker ps --filter "label=dev.shovon.api=api" -q)
-            docker exec -it $CONTAINER_ID alembic upgrade head
+            sudo docker exec -it $CONTAINER_ID alembic upgrade head
