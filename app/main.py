@@ -1,8 +1,6 @@
 
 from fastapi import FastAPI
 
-from .database import engine
-from app.database import Base
 from app.routes import auth, users, posts, votes
 
 app = FastAPI()
