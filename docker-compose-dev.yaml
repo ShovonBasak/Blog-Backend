@@ -7,7 +7,8 @@ services:
       - "443:443"
     restart: always
     environment:
-      DOMAINS:  "localhost -> http://api:8000"
+      STAGE: local
+      DOMAINS: "example.com -> http://api:8000"
     volumes: 
       - https-portal-data:/var/lib/https-portal
     depends_on:
@@ -17,4 +18,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: shvnbasak/fastapi-api
+    image: shvnbasak/blog-backend
+
+volumes:
+  https-portal-data:

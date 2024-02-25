@@ -87,7 +87,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/fastapi:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blog-backend:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Image digest
@@ -120,5 +120,5 @@ jobs:
           script: |
             sudo docker compose down
             sudo docker compose up -d
-            CONTAINER_ID=$(sudo docker ps --filter "label=dev.shovon.fastapi.api=api" -q)
+            CONTAINER_ID=$(sudo docker ps --filter "label=dev.shovon.blog.api=api" -q)
             sudo docker exec $CONTAINER_ID alembic upgrade head

@@ -7,7 +7,7 @@ services:
       - "443:443"
     restart: always
     environment:
-      DOMAINS:  "fastapi.shovon.dev -> http://api:8000"
+      DOMAINS:  "api.blog.shovon.dev -> http://api:8000"
       STAGE:  "production"
       FORCE_RENEW:  "false"
     volumes: 
@@ -16,9 +16,9 @@ services:
       - api
 
   api:
-    image: shvnbasak/fastapi-api:latest
+    image: shvnbasak/blog-backend:latest
     labels:
-      - "dev.shovon.fastapi.api=api"
+      - "dev.shovon.blog.api=api"
     volumes: 
       - /home/ubuntu/src/.env:/usr/src/app/.env:ro
 
